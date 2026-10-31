@@ -1,0 +1,5 @@
+[
+  {"id": "M-VEL-001", "ward_id": "W-VEL", "lat": 12.9816, "lon": 80.2181, "note": "DEMO location, not a real installation"},
+  {"id": "M-ADY-001", "ward_id": "W-ADY", "lat": 13.0013, "lon": 80.2566, "note": "DEMO location, not a real installation"},
+  {"id": "M-TNG-001", "ward_id": "W-TNG", "lat": 13.0419, "lon": 80.2342, "note": "DEMO location, not a real installation"}
+]

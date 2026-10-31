@@ -1,0 +1,21 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Neer Kaaval – flood risk map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>body{font-family:sans-serif;margin:0}#map{height:70vh}form{padding:10px}#out{padding:0 10px}</style></head><body>
+<div id="map"></div>
+<form id="f">Marker <select name="marker_id"><option>M-VEL-001</option><option>M-ADY-001</option><option>M-TNG-001</option></select>
+Lat <input name="lat" value="12.9816" size="9"> Lon <input name="lon" value="80.2181" size="9">
+<input type="file" name="image" accept="image/*" required> <button>Submit photo</button></form><pre id="out"></pre>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map=L.map('map').setView([13.0,80.24],11);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+const col={LOW:'green',MEDIUM:'orange',HIGH:'red'};let layer=L.layerGroup().addTo(map);
+async function load(){layer.clearLayers();const ws=await (await fetch('/wards')).json();
+ for(const w of ws){const a=await (await fetch('/alerts/'+w.ward_id+'?lang=ta')).json();
+  L.circle([w.lat,w.lon],{radius:1500,color:col[w.level]}).addTo(layer).bindPopup('<b>'+w.name_ta+' / '+w.name+'</b><br>'+w.level+'<br>'+a.message);}}
+document.getElementById('f').onsubmit=async e=>{e.preventDefault();
+ const r=await fetch('/reports',{method:'POST',body:new FormData(e.target)});
+ document.getElementById('out').textContent=JSON.stringify(await r.json(),null,2);load();};
+load();
+</script></body></html>

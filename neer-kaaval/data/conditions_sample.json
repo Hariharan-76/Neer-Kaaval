@@ -1,0 +1,5 @@
+{
+  "_comment": "SAMPLE values for demo only. Replace with real IMD / reservoir data feeds.",
+  "rainfall_mm_3h": {"W-VEL": 35, "W-ADY": 20, "W-TNG": 5},
+  "reservoir_level_pct": 82
+}
